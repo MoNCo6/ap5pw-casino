@@ -1,0 +1,43 @@
+﻿@model IList<Member>
+
+@{
+    ViewData["Title"] = "Member Administration";
+}
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create">Create User</a>
+@{
+    if (Model != null && Model.Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">@nameof(Member.Id)</th>
+                    <th scope="col">@nameof(Member.Forename)</th>
+                    <th scope="col">@nameof(Member.Surname)</th>
+                    <th scope="col">@nameof(Member.Email)</th>
+                    <th scope="col">@nameof(Member.Username)</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; ++i)
+                {
+                    <tr>
+                        <th scope="row">@Model[i].Id</th>
+                        <td>@Model[i].Forename</td>
+                        <td>@Model[i].Surname</td>
+                        <td>@Model[i].Email</td>
+                        <td>@Model[i].Username</td>
+                        <td><a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete();">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@section Scripts
+    {
+    <script src="~/js/dialogs.js"></script>
+}
