@@ -18,7 +18,7 @@
                     <th scope="col">@nameof(Member.Email)</th>
                     <th scope="col">@nameof(Member.Username)</th>
                     <th scope="col">@nameof(Member.Password)</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +31,10 @@
                         <td>@Model[i].Email</td>
                         <td>@Model[i].Username</td>
                         <td>@Model[i].Password</td>
-                        <td><a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete();">Delete</a></td>
+                        <td>
+                            <a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete();">Delete</a>
+                            <a asp-action="Edit" asp-route-Id="@Model[i].Id">Edit</a>
+                        </td>
                     </tr>
                 }
             </tbody>

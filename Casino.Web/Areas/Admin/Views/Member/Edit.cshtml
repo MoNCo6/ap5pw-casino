@@ -1,0 +1,54 @@
+﻿@model Member
+
+<form method="post" asp-action="Edit">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">
+                <i class="bi bi-pencil-fill"></i>&nbsp; Edit
+                </h2>
+            <hr />
+        </div>
+        <!--This display all validations-->
+        <!--<div asp-validation-summary="All"></div>-->
+
+        <div class="mb-3">
+            <label asp-for="Forename"></label>  
+            <input asp-for="Forename" class="form-control" />
+            <span asp-validation-for="Forename" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">
+            <i class="bi bi-floppy-fill"></i>&nbsp; Update!
+        </button>
+        <a asp-area="Admin" asp-controller="Member" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            <i class="bi bi-box-arrow-left"></i>&nbsp; Back to list
+        </a>
+    </div>
+</form>
+
+<!--Validation on client site-->
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

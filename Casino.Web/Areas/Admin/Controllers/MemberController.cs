@@ -49,5 +49,35 @@ namespace Casino.Web.Areas.Admin.Controllers
                 return NotFound();
             }
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var member = _memberService.Find((int)id);
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            return View(member);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Member obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _memberService.Update(obj);
+                TempData["success"] = "The register was updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
     }
 }

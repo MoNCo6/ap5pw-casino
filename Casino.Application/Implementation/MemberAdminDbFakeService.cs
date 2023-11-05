@@ -47,5 +47,17 @@ namespace Casino.Application.Implementation
 
             return deleted;
         }
+
+        public Member? Find(int id)
+        {
+            return DatabaseFake.Members.FirstOrDefault(user => user.Id == id);
+        }
+
+        public void Update(Member member)
+        {
+            Member origMember = Find(member.Id);
+            int index = DatabaseFake.Members.IndexOf(origMember);
+            DatabaseFake.Members[index] = member;
+        }
     }
 }

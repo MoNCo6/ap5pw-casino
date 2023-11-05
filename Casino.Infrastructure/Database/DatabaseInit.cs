@@ -28,7 +28,7 @@ namespace Casino.Infrastructure.Database
             members.Add(
                 new Member()
                 {
-                    Id = 1,
+                    Id = 2,
                     Forename = "Jozef2",
                     Surname = "Dlhy",
                     Email = "jozef2@dlhy.com",

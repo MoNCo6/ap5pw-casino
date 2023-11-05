@@ -12,5 +12,7 @@ namespace Casino.Application.Abstraction
         IList<Member> Select();
         void Create(Member member);
         bool Delete(int id);
+        Member? Find(int id);
+        void Update(Member m);
     }
 }
