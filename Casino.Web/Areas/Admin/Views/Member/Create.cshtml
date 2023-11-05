@@ -1,0 +1,30 @@
+﻿@model Member
+
+@{
+    ViewData["Title"] = "User - Create";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label class="form-label">Forename</label>
+        <input class="form-control" asp-for="Forename">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Surname</label>
+        <input class="form-control" asp-for="Surname">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" asp-for="Email">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input class="form-control" asp-for="Username">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input class="form-control" asp-for="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
