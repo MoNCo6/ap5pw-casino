@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMemberAdminService, MemberAdminDbFakeService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IGameAdminService, GameAdminDbFakeService>();
 
 var app = builder.Build();
 
@@ -29,7 +30,12 @@ app.UseAuthorization();
 app.MapAreaControllerRoute(
     name: "MyAdmin",
     areaName: "Admin",
-    pattern: "Admin/{controller}/{action=Index}/{id?}");
+    pattern: "Admin/{controller=Member}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "MyAdmin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=Game}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

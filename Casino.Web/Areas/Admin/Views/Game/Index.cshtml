@@ -1,4 +1,4 @@
-﻿@model IList<Member>
+﻿@model IList<Game>
 
 @{
     if (Model != null && Model.Count > 0)
@@ -6,11 +6,11 @@
         <div class="container p-3">
             <div class="row pt-4">
                 <div class="col-6">
-                    <h1 class="test-primary">Member Administration</h1>
+                    <h1 class="test-primary">Game Administration</h1>
                 </div>
                 <div class="col-6 text-end">
-                    <a asp-controller="Member" asp-action="Create" class="btn btn-primary">
-                        <i class="bi bi-person-plus-fill"></i> &nbsp; Create new one
+                    <a asp-controller="Game" asp-action="Create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle-fill"></i> &nbsp; Create new game
                     </a>
                 </div>
             </div>
@@ -18,12 +18,11 @@
             <table class="table table-border table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">@nameof(Member.Id)</th>
-                        <th scope="col">@nameof(Member.Forename)</th>
-                        <th scope="col">@nameof(Member.Surname)</th>
-                        <th scope="col">@nameof(Member.Email)</th>
-                        <th scope="col">@nameof(Member.Username)</th>
-                        <th scope="col">@nameof(Member.Password)</th>
+                        <th scope="col">@nameof(Game.Id)</th>
+                        <th scope="col">@nameof(Game.Title)</th>
+                        <th scope="col">@nameof(Game.Description)</th>
+                        <th scope="col">@nameof(Game.Rules)</th>
+                        <th scope="col">@nameof(Game.ImageSrc)</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -32,11 +31,10 @@
                     {
                         <tr width="50%">
                             <th scope="row">@Model[i].Id</th>
-                            <td>@Model[i].Forename</td>
-                            <td>@Model[i].Surname</td>
-                            <td>@Model[i].Email</td>
-                            <td>@Model[i].Username</td>
-                            <td>@Model[i].Password</td>
+                            <td>@Model[i].Title</td>
+                            <td>@Model[i].Description</td>
+                            <td>@Model[i].Rules</td>
+                            <td>@Model[i].ImageSrc</td>
                             <td>
                                 <div class="w-75 btn-group" role="group">
                                     <a asp-action="Edit" asp-route-Id="@Model[i].Id" class="btn btn-secondary mx-1">
@@ -54,10 +52,10 @@
                 </tbody>
             </table>
         </div>
-            }
-            }
+    }
+}
 
-            @section Scripts
-            {
-            <script src="~/js/dialogs.js"></script>
+@section Scripts
+    {
+    <script src="~/js/dialogs.js"></script>
         }

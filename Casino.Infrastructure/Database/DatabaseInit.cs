@@ -29,16 +29,104 @@ namespace Casino.Infrastructure.Database
                 new Member()
                 {
                     Id = 2,
-                    Forename = "Jozef2",
-                    Surname = "Dlhy",
-                    Email = "jozef2@dlhy.com",
-                    Username = "Dlhy692",
-                    Password = "4563212",
+                    Forename = "Peter",
+                    Surname = "Mudry",
+                    Email = "peter@mudry.com",
+                    Username = "Mudry69",
+                    Password = "123456",
+                }
+            );
+
+            members.Add(
+               new Member()
+               {
+                   Id = 3,
+                   Forename = "Martin",
+                   Surname = "Pekny",
+                   Email = "martin@pekny.com",
+                   Username = "Pekny69",
+                   Password = "785921",
+               }
+           );
+
+            members.Add(
+                new Member()
+                {
+                    Id = 4,
+                    Forename = "Ludmila",
+                    Surname = "Tenka",
+                    Email = "ludmila@tenka.com",
+                    Username = "Tenka69",
+                    Password = "264875913",
+                }
+            );
+
+            members.Add(
+               new Member()
+               {
+                   Id = 5,
+                   Forename = "Ivana",
+                   Surname = "Hrozna",
+                   Email = "ivana@hrozna.com",
+                   Username = "Hrozna69",
+                   Password = "75913",
+               }
+           );
+
+            members.Add(
+                new Member()
+                {
+                    Id = 6,
+                    Forename = "Erik",
+                    Surname = "Spomaleny",
+                    Email = "erik@spomaleny.com",
+                    Username = "Spomaleny69",
+                    Password = "134679",
                 }
             );
 
             return members;
         }
-        
+
+        public IList<Game> GetGames()
+        {
+            IList<Game> games = new List<Game>();
+
+            games.Add(
+                new Game()
+                {
+                    Id = 1,
+                    Title = "Respin Joker",
+                    Description = "Tu sa bude nachadzat popis RESPIN JOKERA",
+                    Rules = "18+",
+                    ImageSrc = "/img/products/produkty-01.jpg"
+                }
+            );
+
+            games.Add(
+                new Game()
+                {
+                    Id = 2,
+                    Title = "Rullette",
+                    Description = "Tu sa bude nachadzat popis RULLETTY",
+                    Rules = "18+",
+                    ImageSrc = "/img/products/produkty-02.jpg"
+                }
+            );
+
+            games.Add(
+               new Game()
+               {
+                   Id = 3,
+                   Title = "Poker",
+                   Description = "Tu sa bude nachadzat popis POKRU",
+                   Rules = "18+",
+                   ImageSrc = "/img/products/produkty-02.jpg"
+               }
+           );
+
+            return games;
+        }
+
     }
 }

@@ -6,19 +6,19 @@ using Microsoft.Win32;
 namespace Casino.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class MemberController : Controller
+    public class GameController : Controller
     {
-        IMemberAdminService _memberService;
+        IGameAdminService _gameService;
 
-        public MemberController(IMemberAdminService memberService)
+        public GameController(IGameAdminService gameService)
         {
-            _memberService = memberService;
+            _gameService = gameService;
         }
 
         public IActionResult Index()
         {
-            IList<Member> members = _memberService.Select();
-            return View(members);
+            IList<Game> games = _gameService.Select();
+            return View(games);
         }
 
         [HttpGet]
@@ -28,21 +28,21 @@ namespace Casino.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Member member)
+        public IActionResult Create(Game game)
         {
-            _memberService.Create(member);
+            _gameService.Create(game);
 
-            return RedirectToAction(nameof(MemberController.Index));
+            return RedirectToAction(nameof(GameController.Index));
         }
 
 
         public IActionResult Delete(int Id)
         {
-            bool deleted = _memberService.Delete(Id);
+            bool deleted = _gameService.Delete(Id);
 
             if (deleted)
             {
-                return RedirectToAction(nameof(MemberController.Index));
+                return RedirectToAction(nameof(GameController.Index));
             }
             else
             {
@@ -57,22 +57,22 @@ namespace Casino.Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var member = _memberService.Find((int)id);
+            var game = _gameService.Find((int)id);
 
-            if (member == null)
+            if (game == null)
             {
                 return NotFound();
             }
 
-            return View(member);
+            return View(game);
         }
 
         [HttpPost]
-        public IActionResult Edit(Member obj)
+        public IActionResult Edit(Game obj)
         {
             if (ModelState.IsValid)
             {
-                _memberService.Update(obj);
+                _gameService.Update(obj);
                 TempData["success"] = "The register was updated successfully";
                 return RedirectToAction("Index");
             }
@@ -80,3 +80,4 @@ namespace Casino.Web.Areas.Admin.Controllers
         }
     }
 }
+
