@@ -11,13 +11,16 @@ namespace Casino.Application.Implementation
 {
     public class HomeService : IHomeService
     {
-        public MemberViewModel GetHomeViewModel()
+        public CarouselGameViewModel GetHomeViewModel()
         {
-            MemberViewModel viewModel = new MemberViewModel();
+            CarouselGameViewModel viewModel = new CarouselGameViewModel();
 
-            viewModel.Members = DatabaseFake.Members;
+            viewModel.Games = DatabaseFake.Games;
+
+            viewModel.Carousels = DatabaseFake.Carousels;
 
             return viewModel;
         }
+
     }
 }

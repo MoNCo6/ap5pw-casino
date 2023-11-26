@@ -99,7 +99,7 @@ namespace Casino.Infrastructure.Database
                     Title = "Respin Joker",
                     Description = "Tu sa bude nachadzat popis RESPIN JOKERA",
                     Rules = "18+",
-                    ImageSrc = "/img/products/produkty-01.jpg"
+                    ImageSrc = "/img/games/produkty-01.jpg"
                 }
             );
 
@@ -110,7 +110,7 @@ namespace Casino.Infrastructure.Database
                     Title = "Rullette",
                     Description = "Tu sa bude nachadzat popis RULLETTY",
                     Rules = "18+",
-                    ImageSrc = "/img/products/produkty-02.jpg"
+                    ImageSrc = "/img/games/produkty-02.jpg"
                 }
             );
 
@@ -121,12 +121,45 @@ namespace Casino.Infrastructure.Database
                    Title = "Poker",
                    Description = "Tu sa bude nachadzat popis POKRU",
                    Rules = "18+",
-                   ImageSrc = "/img/products/produkty-02.jpg"
+                   ImageSrc = "/img/games/produkty-03.jpg"
                }
            );
 
             return games;
         }
+
+        public IList<Carousel> GetCarousels()
+        {
+            IList<Carousel> carousels = new List<Carousel>();
+
+
+            carousels.Add(new Carousel()
+            {
+                Id = 1,
+                ImageSrc = "/img/carousel/how-to-become-an-information-technology-specialist160684886950141.jpg",
+                ImageAlt = "First slide"
+            });
+
+
+            carousels.Add(new Carousel()
+            {
+                Id = 2,
+                ImageSrc = "/img/carousel/Information-Technology-1-1.jpg",
+                ImageAlt = "Second slide"
+            });
+
+
+            carousels.Add(new Carousel()
+            {
+                Id = 3,
+                ImageSrc = "/img/carousel/itec-index-banner.jpg",
+                ImageAlt = "Third slide"
+            });
+
+
+            return carousels;
+        }
+
 
     }
 }

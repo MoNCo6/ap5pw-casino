@@ -11,13 +11,17 @@ namespace Casino.Infrastructure.Database
     {
         public static List<Member> Members { get; set; }
         public static List<Game> Games { get; set; }
+        public static List<Carousel> Carousels { get; set; }
 
         static DatabaseFake()
         {
             DatabaseInit dbInit = new DatabaseInit();
+
             Members = dbInit.GetMembers().ToList();
 
             Games = dbInit.GetGames().ToList();
+
+            Carousels = dbInit.GetCarousels().ToList();
         }
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Casino.Application.ViewModels
 {
-    internal class GameViewModel
+    public class CarouselGameViewModel
     {
         public IList<Game> Games { get; set; }
+        public IList<Carousel> Carousels { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace Casino.Application.Abstraction
 {
     public interface IHomeService
     {
-        MemberViewModel GetHomeViewModel();
+        CarouselGameViewModel GetHomeViewModel();
     }
 }

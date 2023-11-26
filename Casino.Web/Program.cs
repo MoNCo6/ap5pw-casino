@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMemberAdminService, MemberAdminDbFakeService>();
-builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IGameAdminService, GameAdminDbFakeService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
 
