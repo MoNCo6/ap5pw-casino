@@ -6,9 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
+
 builder.Services.AddScoped<IMemberAdminService, MemberAdminDbFakeService>();
+
 builder.Services.AddScoped<IGameAdminService, GameAdminDbFakeService>();
-builder.Services.AddScoped<IHomeService, HomeService>();
+
+builder.Services.AddScoped<IHomeService, HomeDbFakeService>();
 
 var app = builder.Build();
 

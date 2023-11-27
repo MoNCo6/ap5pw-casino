@@ -11,12 +11,19 @@ namespace Casino.Application.Implementation
 {
     public class GameAdminDbFakeService : IGameAdminService
     {
+        IFileUploadService _fileUploadService;
+
+        public GameAdminDbFakeService(IFileUploadService fileUploadService)
+        {
+            _fileUploadService = fileUploadService;
+        }
+
         public IList<Game> Select()
         {
             return DatabaseFake.Games;
         }
 
-        public void Create(Game game)
+        public async Task Create(Game game)
         {
             if (DatabaseFake.Games != null &&
                 DatabaseFake.Games.Count > 0)
@@ -28,6 +35,8 @@ namespace Casino.Application.Implementation
                 game.Id = 1;
             }
 
+            string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
+            game.ImageSrc = imageSource;
 
             if (DatabaseFake.Games != null)
                 DatabaseFake.Games.Add(game);

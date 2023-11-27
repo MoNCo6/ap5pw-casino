@@ -99,7 +99,7 @@ namespace Casino.Infrastructure.Database
                     Title = "Respin Joker",
                     Description = "Tu sa bude nachadzat popis RESPIN JOKERA",
                     Rules = "18+",
-                    ImageSrc = "/img/games/produkty-01.jpg"
+                    ImageSrc = "/img/games/respinjoker.jpg"
                 }
             );
 
@@ -110,7 +110,7 @@ namespace Casino.Infrastructure.Database
                     Title = "Rullette",
                     Description = "Tu sa bude nachadzat popis RULLETTY",
                     Rules = "18+",
-                    ImageSrc = "/img/games/produkty-02.jpg"
+                    ImageSrc = "/img/games/Roulette.png"
                 }
             );
 
@@ -121,7 +121,7 @@ namespace Casino.Infrastructure.Database
                    Title = "Poker",
                    Description = "Tu sa bude nachadzat popis POKRU",
                    Rules = "18+",
-                   ImageSrc = "/img/games/produkty-03.jpg"
+                   ImageSrc = "/img/games/joker.jpg"
                }
            );
 
@@ -136,7 +136,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 1,
-                ImageSrc = "/img/carousel/how-to-become-an-information-technology-specialist160684886950141.jpg",
+                ImageSrc = "/img/carousel/carousel1.jpg",
                 ImageAlt = "First slide"
             });
 
@@ -144,7 +144,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 2,
-                ImageSrc = "/img/carousel/Information-Technology-1-1.jpg",
+                ImageSrc = "/img/carousel/carousel2.jpg",
                 ImageAlt = "Second slide"
             });
 
@@ -152,7 +152,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 3,
-                ImageSrc = "/img/carousel/itec-index-banner.jpg",
+                ImageSrc = "/img/carousel/carousel3.jpg",
                 ImageAlt = "Third slide"
             });
 

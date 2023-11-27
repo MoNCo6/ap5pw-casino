@@ -12,24 +12,29 @@
         <!--<div asp-validation-summary="All"></div>-->
 
         <div class="mb-3">
-            <label asp-for="Title"></label>  
+            <label class="Title"></label>
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Description"></label>
+            <label class="Description"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="Rules"></label>
+            <label class="Rules"></label>
             <input asp-for="Rules" class="form-control" />
             <span asp-validation-for="Rules" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for="ImageSrc"></label>
+            <label class="ImageSrc"></label>
             <input asp-for="ImageSrc" class="form-control" />
             <span asp-validation-for="ImageSrc" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Image</label>
+            <input id="fileupload" class="form-control-file" asp-for="Image">
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" style="width:150px">
             <i class="bi bi-floppy-fill"></i>&nbsp; Update!

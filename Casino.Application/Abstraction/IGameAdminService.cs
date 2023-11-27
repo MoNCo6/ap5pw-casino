@@ -10,7 +10,7 @@ namespace Casino.Application.Abstraction
     public interface IGameAdminService
     {
         IList<Game> Select();
-        void Create(Game game);
+        Task Create(Game game);
         bool Delete(int id);
         Game? Find(int id);
         void Update(Game m);

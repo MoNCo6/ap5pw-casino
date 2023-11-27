@@ -28,11 +28,15 @@ namespace Casino.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Game game)
+        public async Task<IActionResult> Create(Game game)
         {
-            _gameService.Create(game);
+            if (ModelState.IsValid)
+            {
+                await _gameService.Create(game);
 
-            return RedirectToAction(nameof(GameController.Index));
+                return RedirectToAction(nameof(GameController.Index));
+            }
+            return View(game);     
         }
 
 
