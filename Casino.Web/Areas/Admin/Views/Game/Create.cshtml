@@ -13,17 +13,17 @@
         <div asp-validation-summary="All" class="text-danger"></div>
 
         <div class="mb-3">
-            <label class="Title"></label>
+            <label asp-for="Title"></label>
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Description"></label>
+            <label asp-for="Description"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Rules"></label>
+            <label asp-for="Rules"></label>
             <input asp-for="Rules" class="form-control" />
             <span asp-validation-for="Rules" class="text-danger"></span>
         </div>
@@ -41,7 +41,8 @@
 </form>
 
 <!--Validation on client site-->
-@section Scripts{
+@section Scripts
+{
     @{
         <partial name="_ValidationScriptsPartial" />
     }

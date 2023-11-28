@@ -18,9 +18,9 @@ namespace Casino.Domain.Entities
         public string Description { get; set; }
         [Required]
         public string Rules { get; set; }
-        
+
         public string? ImageSrc { get; set; }
-        
+
         public IFormFile Image { get; set; }
     }
 }

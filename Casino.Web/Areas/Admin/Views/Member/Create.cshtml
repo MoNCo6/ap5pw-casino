@@ -12,27 +12,27 @@
         <!--<div asp-validation-summary="All"></div>-->
 
         <div class="mb-3">
-            <label class="Forename"></label>
+            <label asp-for="Forename"></label>
             <input asp-for="Forename" class="form-control" />
             <span asp-validation-for="Forename" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Surname"></label>
+            <label asp-for="Surname"></label>
             <input asp-for="Surname" class="form-control" />
             <span asp-validation-for="Surname" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Email"></label>
+            <label asp-for="Email"></label>
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Username"></label>
+            <label asp-for="Username"></label>
             <input asp-for="Username" class="form-control" />
             <span asp-validation-for="Username" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Password"></label>
+            <label asp-for="Password"></label>
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
@@ -45,7 +45,8 @@
 </form>
 
 <!--Validation on client site-->
-@section Scripts{
+@section Scripts
+{
     @{
         <partial name="_ValidationScriptsPartial" />
     }

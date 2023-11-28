@@ -5,29 +5,29 @@
         <div class="row pb-2">
             <h2 class="text-primary">
                 <i class="bi bi-pencil-fill"></i>&nbsp; Edit game
-                </h2>
+            </h2>
             <hr />
         </div>
         <!--This display all validations-->
         <!--<div asp-validation-summary="All"></div>-->
 
         <div class="mb-3">
-            <label class="Title"></label>
+            <label asp-for="Title"></label>
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Description"></label>
+            <label asp-for="Description"></label>
             <input asp-for="Description" class="form-control" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="Rules"></label>
+            <label asp-for="Rules"></label>
             <input asp-for="Rules" class="form-control" />
             <span asp-validation-for="Rules" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="ImageSrc"></label>
+            <label asp-for="ImageSrc"></label>
             <input asp-for="ImageSrc" class="form-control" />
             <span asp-validation-for="ImageSrc" class="text-danger"></span>
         </div>
@@ -46,8 +46,8 @@
 </form>
 
 <!--Validation on client site-->
-
-@section Scripts{
+@section Scripts
+{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
