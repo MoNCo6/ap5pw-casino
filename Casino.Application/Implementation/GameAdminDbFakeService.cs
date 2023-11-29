@@ -23,7 +23,7 @@ namespace Casino.Application.Implementation
             return DatabaseFake.Games;
         }
 
-        public async Task Create(Game game)
+        public async Task Create(GameCreate game)
         {
             if (DatabaseFake.Games != null &&
                 DatabaseFake.Games.Count > 0)
@@ -36,10 +36,18 @@ namespace Casino.Application.Implementation
             }
 
             string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
-            game.ImageSrc = imageSource;
+
+            Game x = new Game()
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Description = game.Description,
+                Rules = game.Rules,
+                ImageSrc = imageSource,
+            };
 
             if (DatabaseFake.Games != null)
-                DatabaseFake.Games.Add(game);
+                DatabaseFake.Games.Add(x);
         }
 
         public bool Delete(int id)
@@ -62,17 +70,29 @@ namespace Casino.Application.Implementation
             return DatabaseFake.Games.FirstOrDefault(game => game.Id == id);
         }
 
-        public async Task Update(Game game)
+        public async Task Update(GameEdit game)
         {
             Game origGame = Find(game.Id);
             int index = DatabaseFake.Games.IndexOf(origGame);
-            DatabaseFake.Games[index] = game;
 
+
+            string ImageSrc;
             if (game.Image != null)
             {
                 string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
-                game.ImageSrc = imageSource;
+                ImageSrc = imageSource;
+            } else
+            {
+                ImageSrc = origGame.ImageSrc;
             }
+
+            DatabaseFake.Games[index] = new Game() { 
+                Id = game.Id,
+                Title = game.Title,
+                Description = game.Description,
+                Rules = game.Rules,
+                ImageSrc = ImageSrc,
+            };
         }
     }
 }

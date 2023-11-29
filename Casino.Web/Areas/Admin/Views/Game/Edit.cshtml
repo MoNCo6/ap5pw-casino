@@ -1,4 +1,4 @@
-﻿@model Game
+﻿@model GameEdit
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
@@ -25,11 +25,6 @@
             <label asp-for="Rules"></label>
             <input asp-for="Rules" class="form-control" />
             <span asp-validation-for="Rules" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="ImageSrc"></label>
-            <input asp-for="ImageSrc" class="form-control" />
-            <span asp-validation-for="ImageSrc" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label class="form-label">Image</label>

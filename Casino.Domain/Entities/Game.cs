@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Casino.Domain.Entities
 {
-    public class Game : Entity
+    public class BaseGame : Entity
     {
         [Required]
         public string Title { get; set; }
@@ -18,9 +18,22 @@ namespace Casino.Domain.Entities
         public string Description { get; set; }
         [Required]
         public string Rules { get; set; }
+    }
 
-        public string? ImageSrc { get; set; }
+    public class GameCreate : BaseGame
+    {
+        [Required]
+        public IFormFile Image { get; set; }
+    }
 
+    public class GameEdit : BaseGame
+    {
         public IFormFile? Image { get; set; }
+    }
+
+    public class Game : BaseGame
+    {
+        [Required]
+        public string ImageSrc { get; set; }
     }
 }

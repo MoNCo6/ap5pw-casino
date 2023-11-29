@@ -28,7 +28,7 @@ namespace Casino.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Game game)
+        public async Task<IActionResult> Create(GameCreate game)
         {
             if (ModelState.IsValid)
             {
@@ -68,11 +68,20 @@ namespace Casino.Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(game);
+            GameEdit x = new GameEdit()
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Description = game.Description,
+                Rules = game.Rules,
+                Image = null,
+            };
+
+            return View(x);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Game obj)
+        public async Task<IActionResult> Edit(GameEdit obj)
         {
             if (ModelState.IsValid)
             {
