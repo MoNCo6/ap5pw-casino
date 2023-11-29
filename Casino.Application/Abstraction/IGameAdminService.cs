@@ -13,6 +13,6 @@ namespace Casino.Application.Abstraction
         Task Create(Game game);
         bool Delete(int id);
         Game? Find(int id);
-        void Update(Game m);
+        Task Update(Game m);
     }
 }

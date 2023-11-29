@@ -62,11 +62,17 @@ namespace Casino.Application.Implementation
             return DatabaseFake.Games.FirstOrDefault(game => game.Id == id);
         }
 
-        public void Update(Game game)
+        public async Task Update(Game game)
         {
             Game origGame = Find(game.Id);
             int index = DatabaseFake.Games.IndexOf(origGame);
             DatabaseFake.Games[index] = game;
+
+            if (game.Image != null)
+            {
+                string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
+                game.ImageSrc = imageSource;
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Casino.Web.Areas.Admin.Controllers
 
                 return RedirectToAction(nameof(GameController.Index));
             }
-            return View(game);     
+            return View(game);
         }
 
 
@@ -72,11 +72,11 @@ namespace Casino.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Game obj)
+        public async Task<IActionResult> Edit(Game obj)
         {
             if (ModelState.IsValid)
             {
-                _gameService.Update(obj);
+                await _gameService.Update(obj);
                 TempData["success"] = "The register was updated successfully";
                 return RedirectToAction("Index");
             }
