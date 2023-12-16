@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace Casino.Application.Implementation
-{
-    internal class MemberAdminService
-    {
-    }
-}
+//namespace Casino.Application.Implementation
+//{
+//    internal class MemberAdminService
+//    {
+//    }
+//}

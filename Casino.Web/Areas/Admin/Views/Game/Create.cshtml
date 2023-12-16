@@ -1,6 +1,7 @@
 ﻿@model GameCreate
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="border p-3 mt-4">
         <div class="row pb-2">
             <h2 class="text-primary">
@@ -43,7 +44,6 @@
 <!--Validation on client site-->
 @section Scripts
 {
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/validations/FileContentValidation.js"></script>
 }

@@ -9,7 +9,7 @@ namespace Casino.Infrastructure.Database
 {
     public class DatabaseFake
     {
-        public static List<Member> Members { get; set; }
+        //public static List<Member> Members { get; set; }
         public static List<Game> Games { get; set; }
         public static List<Carousel> Carousels { get; set; }
 
@@ -17,7 +17,7 @@ namespace Casino.Infrastructure.Database
         {
             DatabaseInit dbInit = new DatabaseInit();
 
-            Members = dbInit.GetMembers().ToList();
+            //Members = dbInit.GetMembers().ToList();
 
             Games = dbInit.GetGames().ToList();
 

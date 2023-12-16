@@ -1,11 +1,14 @@
 ﻿using Casino.Application.Abstraction;
 using Casino.Domain.Entities;
+using Casino.Infrastructure.Identity.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 
 namespace Casino.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
     public class GameController : Controller
     {
         IGameAdminService _gameService;
@@ -36,7 +39,10 @@ namespace Casino.Web.Areas.Admin.Controllers
 
                 return RedirectToAction(nameof(GameController.Index));
             }
-            return View(game);
+            else
+            {
+                return View(game);
+            }
         }
 
 

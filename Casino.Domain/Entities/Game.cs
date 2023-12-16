@@ -23,11 +23,13 @@ namespace Casino.Domain.Entities
     public class GameCreate : BaseGame
     {
         [Required]
+        [FileContent("image")]
         public IFormFile Image { get; set; }
     }
 
     public class GameEdit : BaseGame
     {
+        [FileContent("image")]
         public IFormFile? Image { get; set; }
     }
 

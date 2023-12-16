@@ -2,7 +2,6 @@
 using Casino.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Casino.Application.Abstraction;
 using Casino.Application.ViewModels;
 
 namespace Casino.Web.Controllers
