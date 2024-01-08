@@ -1,14 +1,9 @@
-﻿@* @model IList<Member>
+﻿@model IList<Casino.Infrastructure.Identity.User>
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h1 class="test-primary">Member Administration</h1>
-        </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Member" asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-person-plus-fill"></i> &nbsp; Create new one
-            </a>
+            <h1 class="test-primary">User Administration</h1>
         </div>
     </div>
     @{
@@ -18,12 +13,13 @@
             <table class="table table-border table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">@nameof(Member.Id)</th>
-                        <th scope="col">@nameof(Member.Forename)</th>
-                        <th scope="col">@nameof(Member.Surname)</th>
-                        <th scope="col">@nameof(Member.Email)</th>
-                        <th scope="col">@nameof(Member.Username)</th>
-                        <th scope="col">@nameof(Member.Password)</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">PhoneNumber</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">CreatedAt</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -32,17 +28,14 @@
                     {
                         <tr width="50%">
                             <th scope="row">@Model[i].Id</th>
-                            <td>@Model[i].Forename</td>
-                            <td>@Model[i].Surname</td>
+                            <td>@Model[i].FirstName</td>
+                            <td>@Model[i].LastName</td>
                             <td>@Model[i].Email</td>
-                            <td>@Model[i].Username</td>
-                            <td>@Model[i].Password</td>
+                            <td>@Model[i].PhoneNumber</td>
+                            <td>@Model[i].UserName</td>
+                            <td>@Model[i].CreatedAt</td>
                             <td>
                                 <div class="w-75 btn-group" role="group">
-                                    <a asp-action="Edit" asp-route-Id="@Model[i].Id" class="btn btn-secondary mx-1">
-                                        <i class="bi bi-pencil"></i>
-                                        &nbsp;Edit
-                                    </a>
                                     <a asp-action="Delete" asp-route-Id="@Model[i].Id" onclick="return ConfirmDelete();" class="btn btn-danger mx-1">
                                         <i class="bi bi-trash3-fill"></i>
                                         &nbsp;Delete
@@ -61,4 +54,3 @@
 {
     <script src="~/js/dialogs.js"></script>
 }
- *@

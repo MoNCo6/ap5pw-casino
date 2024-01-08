@@ -29,5 +29,6 @@ namespace Casino.Application.ViewModels
         [Required]
         [Compare(nameof(Password), ErrorMessage = "Passwords don't match!")]
         public string? RepeatedPassword { get; set; }
+
     }
 }

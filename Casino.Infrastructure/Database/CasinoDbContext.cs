@@ -10,15 +10,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Casino.Infrastructure.Identity;
 
 
+
 namespace Casino.Infrastructure.Database
 {
     public class CasinoDbContext : IdentityDbContext<User, Role, int>
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<Carousel> Carousels { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        //public DbSet<Member> Members { get; set; }
-     
 
         public CasinoDbContext(DbContextOptions options) : base(options)
         {
@@ -31,7 +31,6 @@ namespace Casino.Infrastructure.Database
             DatabaseInit dbInit = new DatabaseInit();
             modelBuilder.Entity<Game>().HasData(dbInit.GetGames());
             modelBuilder.Entity<Carousel>().HasData(dbInit.GetCarousels());
-            //modelBuilder.Entity<Member>().HasData(dbInit.GetMembers());
 
             //Identity - User and Role initialization
             //roles must be added first

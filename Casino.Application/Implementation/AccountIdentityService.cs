@@ -42,7 +42,8 @@ namespace Casino.Application.Implementation
                 FirstName = vm.FirstName,
                 LastName = vm.LastName,
                 Email = vm.Email,
-                PhoneNumber = vm.Phone
+                PhoneNumber = vm.Phone,
+                CreatedAt = DateTime.Now,
             };
 
             string[] errors = null;

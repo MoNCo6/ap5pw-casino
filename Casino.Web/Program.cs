@@ -12,11 +12,13 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 
-//builder.Services.AddScoped<IMemberAdminService, MemberAdminDbFakeService>();
+builder.Services.AddScoped<IGameAdminService, GameAdminService>();
 
-builder.Services.AddScoped<IGameAdminService, GameAdminDbFakeService>();
+builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 
-builder.Services.AddScoped<IHomeService, HomeDbFakeService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
+
+builder.Services.AddScoped<IAccountService, AccountIdentityService>();
 
 
 builder.Services.AddDbContext<CasinoDbContext>(options => options.UseSqlServer(
@@ -50,9 +52,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
-
-builder.Services.AddScoped<IAccountService, AccountIdentityService>();
-
 var app = builder.Build();
 
 
@@ -71,10 +70,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapAreaControllerRoute(
-//    name: "MyAdmin",
-//    areaName: "Admin",
-//    pattern: "Admin/{controller=Member}/{action=Index}/{id?}");
+app.MapAreaControllerRoute(
+    name: "MyAdmin",
+    areaName: "Admin",
+    pattern: "Admin/{controller=User}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "MyAdmin",
