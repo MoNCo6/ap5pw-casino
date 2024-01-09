@@ -29,20 +29,35 @@
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Contact">Contact Us</a>
+                        </li>
+
                         @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager))))
                         {
-                        <li class="nav-item">
+                            <li class="nav-item">
                             <a class="nav-link text-light" asp-area="Admin" asp-controller="User" asp-action="Index">
                                 User administration
                             </a>
-                        </li>
+                            </li>
                         }
                         @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager))))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Game" asp-action="Index">Games administration</a>
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Game" asp-action="Index">
+                                    Games administration
+                                </a>
                             </li>
                         }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Security" asp-controller="Account" asp-action="Profile">
+                                    Profile
+                                </a>
+                            </li>
+                        }
+
                         @*   <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
                         </li>

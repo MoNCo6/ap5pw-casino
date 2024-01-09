@@ -4,10 +4,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Casino.Infrastructure.Identity;
 using Casino.Infrastructure.Database;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
@@ -18,8 +22,9 @@ builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 
 builder.Services.AddScoped<IHomeService, HomeService>();
 
-builder.Services.AddScoped<IAccountService, AccountIdentityService>();
+var sendGridApiKey = builder.Configuration.GetValue<string>("SendGrid:ApiKey");
 
+builder.Services.AddScoped<IAccountService, AccountIdentityService>();
 
 builder.Services.AddDbContext<CasinoDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")

@@ -1,0 +1,32 @@
+﻿@model UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Username</th>
+            <td>@Model.UserName</td>
+        </tr>
+        <tr>
+            <th>First Name</th>
+            <td>@Model.FirstName</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>@Model.LastName</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <!-- Add other properties as needed -->
+    </tbody>
+</table>
+
+<a href='@Url.Action("Index", "Home", new { area = "" })' class="btn btn-primary">Return to Homepage</a>
+<a href='@Url.Action("EditProfile", "Account", new { area = "Security" })' class="btn btn-info">Edit Profile</a>

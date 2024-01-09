@@ -8,19 +8,28 @@ using Casino.Application.Abstraction;
 using Casino.Application.ViewModels;
 using Casino.Infrastructure.Identity.Enums;
 using Casino.Web.Controllers;
+using System.Security.Claims;
+using Casino.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Casino.Application.Implementation;
+using Casino.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
-namespace UTB.Eshop.Web.Areas.Security.Controllers
+namespace Casino.Web.Areas.Security.Controllers
 {
     [Area("Security")]
     public class AccountController : Controller
     {
         IAccountService accountService;
+        private readonly IUserAdminService _userService;
 
-        public AccountController(IAccountService security)
+
+        public AccountController(IUserAdminService userService, IAccountService security)
         {
             this.accountService = security;
+            _userService = userService;
         }
-
 
         public IActionResult Register()
         {
@@ -85,5 +94,73 @@ namespace UTB.Eshop.Web.Areas.Security.Controllers
             return RedirectToAction(nameof(Login));
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = int.Parse(userIdString);
+            var profile = await _userService.GetUserProfileAsync(userId);
+            return View(profile);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditProfile()
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = int.Parse(userIdString);
+            var profile = await _userService.GetUserProfileAsync(userId);
+            return View(profile);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EditProfile(UserProfileViewModel model, [FromServices] IUserAdminService userService)
+        {
+            Console.WriteLine(model.LastName);
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = _userManager.GetUserId(User);
+            var success = await userService.UpdateUserAsync(userId, model);
+
+            if (success)
+            {
+                return RedirectToAction(nameof(Profile));
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error updating user.");
+                return View(model);
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult DepositMoney()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DepositMoney(DepositViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // TODO: Process the deposit (e.g., integrate with a payment gateway)
+                // Update the user's balance
+
+                return RedirectToAction("Index", "Home"); // Redirect to home or a confirmation page
+            }
+
+            return View(model);
+        }
+
     }
+    
 }

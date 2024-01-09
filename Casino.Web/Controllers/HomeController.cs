@@ -2,20 +2,20 @@
 using Casino.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Casino.Application.ViewModels;
+using Casino.Web.Models;
+using Casino.Application.ViewModels; 
 
 namespace Casino.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         IHomeService _homeService;
+       
 
-        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
+        public HomeController(IHomeService homeService)
         {
-            _logger = logger;
             _homeService = homeService;
-        }
+        }   
 
         public IActionResult Index()
         {
@@ -33,5 +33,24 @@ namespace Casino.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Contact()
+        {
+            return View(new ContactViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = "Thank you for contacting us.";
+                ModelState.Clear();
+                return View(new ContactViewModel());
+            }
+            return View(model);
+        }
+
+
     }
 }
