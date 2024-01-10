@@ -6,6 +6,17 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<div>
+    @if (!string.IsNullOrWhiteSpace(Model.ImagePath))
+    {
+        <img src="@Url.Content(Model.ImagePath)" alt="Profile Image" class="img-thumbnail" />
+    }
+    else
+    {
+        <p>No profile image available.</p>
+    }
+</div>
+
 <table class="table">
     <tbody>
         <tr>
@@ -24,7 +35,14 @@
             <th>Email</th>
             <td>@Model.Email</td>
         </tr>
-        <!-- Add other properties as needed -->
+        <tr>
+            <th>Phone Number</th>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <th>Balance</th>
+            <td>@Model.Balance</td>
+        </tr>
     </tbody>
 </table>
 

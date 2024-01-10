@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Casino.Application.Implementation;
 using Casino.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Casino.Domain.Entities;
+using Microsoft.Extensions.Hosting;
 
 namespace Casino.Web.Areas.Security.Controllers
 {
@@ -24,14 +26,14 @@ namespace Casino.Web.Areas.Security.Controllers
         IAccountService accountService;
         private readonly IUserAdminService _userService;
         UserManager<User> userManager;
+        private readonly IFileUploadService _fileUploadService;
 
-
-
-        public AccountController(IUserAdminService userService, IAccountService security, UserManager<User> userManager)
+        public AccountController(IFileUploadService fileUploadService, IUserAdminService userService, IAccountService security, UserManager<User> userManager)
         {
             this.accountService = security;
             _userService = userService;
             this.userManager = userManager;
+            _fileUploadService = fileUploadService;
         }
 
         public IActionResult Register()
@@ -114,57 +116,55 @@ namespace Casino.Web.Areas.Security.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userId = int.Parse(userIdString);
             var profile = await _userService.GetUserProfileAsync(userId);
-            return View(profile);
+            var editProfile = new EditUserProfileViewModel() { 
+                UserName = profile.UserName,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+                Email = profile.Email,
+                PhoneNumber = profile.PhoneNumber
+            };
+            return View(editProfile);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditProfile(UserProfileViewModel model, [FromServices] IUserAdminService userService)
+        public async Task<IActionResult> EditProfile(EditUserProfileViewModel model)
         {
-            Console.WriteLine(model.LastName);
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var userId = userManager.GetUserId(User);
-            var success = await userService.UpdateUserAsync(userId, model);
-
-            if (success)
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return RedirectToAction(nameof(Profile));
+                return NotFound();
             }
-            else
+
+            if (model.Image != null && model.Image.Length > 0)
             {
-                ModelState.AddModelError("", "Error updating user.");
+                var folderName = "profile_images"; 
+                var imagePath = await _fileUploadService.FileUploadAsync(model.Image, folderName);
+
+                user.ImagePath = imagePath;
+            }
+
+            user.UserName = model.UserName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+
+            var updateResult = await userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                foreach (var error in updateResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
                 return View(model);
             }
-
+            return RedirectToAction(nameof(Profile));
         }
-
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult DepositMoney()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> DepositMoney(DepositViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // TODO: Process the deposit (e.g., integrate with a payment gateway)
-                // Update the user's balance
-
-                return RedirectToAction("Index", "Home"); // Redirect to home or a confirmation page
-            }
-
-            return View(model);
-        }
-
     }
-    
 }

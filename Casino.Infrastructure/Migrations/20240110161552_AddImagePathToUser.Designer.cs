@@ -4,6 +4,7 @@ using Casino.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Casino.Infrastructure.Migrations
 {
     [DbContext(typeof(CasinoDbContext))]
-    partial class CasinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110161552_AddImagePathToUser")]
+    partial class AddImagePathToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,9 +184,6 @@ namespace Casino.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -257,7 +257,6 @@ namespace Casino.Infrastructure.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            Balance = 0,
                             ConcurrencyStamp = "b09a83ae-cfd3-4ee7-97e6-fbcf0b0fe78c",
                             Email = "admin@admin.cz",
                             EmailConfirmed = true,
@@ -276,7 +275,6 @@ namespace Casino.Infrastructure.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            Balance = 0,
                             ConcurrencyStamp = "7a8d96fd-5918-441b-b800-cbafa99de97b",
                             Email = "manager@manager.cz",
                             EmailConfirmed = true,
