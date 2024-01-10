@@ -10,7 +10,6 @@ using Casino.Infrastructure.Identity;
 using Casino.Application.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using SendGrid.Helpers.Mail;
 
 
 namespace Casino.Application.Implementation

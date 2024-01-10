@@ -23,12 +23,15 @@ namespace Casino.Web.Areas.Security.Controllers
     {
         IAccountService accountService;
         private readonly IUserAdminService _userService;
+        UserManager<User> userManager;
 
 
-        public AccountController(IUserAdminService userService, IAccountService security)
+
+        public AccountController(IUserAdminService userService, IAccountService security, UserManager<User> userManager)
         {
             this.accountService = security;
             _userService = userService;
+            this.userManager = userManager;
         }
 
         public IActionResult Register()
@@ -124,7 +127,7 @@ namespace Casino.Web.Areas.Security.Controllers
                 return View(model);
             }
 
-            var userId = _userManager.GetUserId(User);
+            var userId = userManager.GetUserId(User);
             var success = await userService.UpdateUserAsync(userId, model);
 
             if (success)
@@ -136,6 +139,7 @@ namespace Casino.Web.Areas.Security.Controllers
                 ModelState.AddModelError("", "Error updating user.");
                 return View(model);
             }
+
         }
 
 
