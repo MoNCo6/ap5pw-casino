@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Casino.Infrastructure.Migrations
 {
     [DbContext(typeof(CasinoDbContext))]
-    [Migration("20240110161552_AddImagePathToUser")]
-    partial class AddImagePathToUser
+    [Migration("20240111170811_Fix")]
+    partial class Fix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,39 @@ namespace Casino.Infrastructure.Migrations
                             ImageAlt = "Third slide",
                             ImageSrc = "/img/carousel/carousel3.jpg"
                         });
+                });
+
+            modelBuilder.Entity("Casino.Domain.Entities.Deposit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Deposits");
                 });
 
             modelBuilder.Entity("Casino.Domain.Entities.Game", b =>
@@ -120,7 +153,7 @@ namespace Casino.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Casino.Infrastructure.Identity.Role", b =>
+            modelBuilder.Entity("Casino.Domain.Identity.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -173,7 +206,7 @@ namespace Casino.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Casino.Infrastructure.Identity.User", b =>
+            modelBuilder.Entity("Casino.Domain.Identity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,6 +215,9 @@ namespace Casino.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Balance")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -257,6 +293,7 @@ namespace Casino.Infrastructure.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
+                            Balance = 0,
                             ConcurrencyStamp = "b09a83ae-cfd3-4ee7-97e6-fbcf0b0fe78c",
                             Email = "admin@admin.cz",
                             EmailConfirmed = true,
@@ -275,6 +312,7 @@ namespace Casino.Infrastructure.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
+                            Balance = 0,
                             ConcurrencyStamp = "7a8d96fd-5918-441b-b800-cbafa99de97b",
                             Email = "manager@manager.cz",
                             EmailConfirmed = true,
@@ -421,9 +459,20 @@ namespace Casino.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Casino.Domain.Entities.Deposit", b =>
+                {
+                    b.HasOne("Casino.Domain.Identity.User", "User")
+                        .WithMany("Deposits")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("Casino.Infrastructure.Identity.Role", null)
+                    b.HasOne("Casino.Domain.Identity.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -432,7 +481,7 @@ namespace Casino.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Casino.Infrastructure.Identity.User", null)
+                    b.HasOne("Casino.Domain.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -441,7 +490,7 @@ namespace Casino.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Casino.Infrastructure.Identity.User", null)
+                    b.HasOne("Casino.Domain.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -450,13 +499,13 @@ namespace Casino.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("Casino.Infrastructure.Identity.Role", null)
+                    b.HasOne("Casino.Domain.Identity.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Casino.Infrastructure.Identity.User", null)
+                    b.HasOne("Casino.Domain.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -465,11 +514,16 @@ namespace Casino.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Casino.Infrastructure.Identity.User", null)
+                    b.HasOne("Casino.Domain.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Casino.Domain.Identity.User", b =>
+                {
+                    b.Navigation("Deposits");
                 });
 #pragma warning restore 612, 618
         }

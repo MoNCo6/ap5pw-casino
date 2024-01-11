@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Casino.Infrastructure.Identity.Enums
+namespace Casino.Domain.Identity.Enums
 {
     public enum Roles
     {

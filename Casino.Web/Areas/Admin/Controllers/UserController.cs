@@ -1,8 +1,8 @@
 ﻿using Casino.Application.Abstraction;
 using Casino.Application.ViewModels;
 using Casino.Domain.Entities;
-using Casino.Infrastructure.Identity;
-using Casino.Infrastructure.Identity.Enums;
+using Casino.Domain.Identity;
+using Casino.Domain.Identity.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;

@@ -9,10 +9,7 @@
             </h2>
             <hr />
         </div>
-        <!--This display all validations-->
-        <!--<div asp-validation-summary="All"></div>-->
         <div asp-validation-summary="All" class="text-danger"></div>
-
         <div class="mb-3">
             <label asp-for="Title"></label>
             <input asp-for="Title" class="form-control" />
@@ -40,8 +37,6 @@
             <i class="bi bi-box-arrow-left"></i>&nbsp; Back to list
         </a>
 </form>
-
-<!--Validation on client site-->
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />

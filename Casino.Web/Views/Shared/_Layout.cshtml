@@ -57,28 +57,14 @@
                                 </a>
                             </li>
                         }
-
-                        @*   <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                        </li> *@
-                    </ul>
-                   @*  <form class="d-flex">
-                        <input class="form-control me-sm-2" type="search" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form> *@
+                        @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager))))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="Admin" asp-controller="Deposit" asp-action="Index">
+                                    Deposit
+                                </a>
+                            </li>
+                        }
                     @{
                         @if (User.Identity.IsAuthenticated == false)
                         {
@@ -103,7 +89,6 @@
             </div>
         </nav>
     </header>
-    @* fluid container = roztiahne na celu širku stránky *@
     <div class="container bg-transparent flex-grow-1" >
         <main role="main" class="pb-3">
             @RenderBody()

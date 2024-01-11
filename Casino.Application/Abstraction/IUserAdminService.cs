@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Casino.Application.ViewModels;
 using Casino.Domain.Entities;
-using Casino.Infrastructure.Identity;
+using Casino.Domain.Identity;
 
 namespace Casino.Application.Abstraction
 {

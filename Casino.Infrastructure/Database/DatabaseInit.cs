@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Casino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Casino.Infrastructure.Identity;
+using Casino.Domain.Identity;
 using System.Data;
 
 namespace Casino.Infrastructure.Database

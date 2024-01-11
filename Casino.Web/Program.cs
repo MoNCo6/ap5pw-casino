@@ -2,7 +2,7 @@ using Casino.Application.Abstraction;
 using Casino.Application.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Casino.Infrastructure.Identity;
+using Casino.Domain.Identity;
 using Casino.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +19,9 @@ builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 
 builder.Services.AddScoped<IHomeService, HomeService>();
 
-var sendGridApiKey = builder.Configuration.GetValue<string>("SendGrid:ApiKey");
-
 builder.Services.AddScoped<IAccountService, AccountIdentityService>();
+
+builder.Services.AddScoped<IDepositService, DepositService>();
 
 builder.Services.AddDbContext<CasinoDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
@@ -70,6 +70,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapAreaControllerRoute(
     name: "MyAdmin",

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Casino.Application.Abstraction;
 using Casino.Application.ViewModels;
-using Casino.Infrastructure.Identity.Enums;
+using Casino.Domain.Identity.Enums;
 using Casino.Web.Controllers;
 using System.Security.Claims;
-using Casino.Infrastructure.Identity;
+using Casino.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Casino.Application.Implementation;
@@ -34,6 +34,7 @@ namespace Casino.Web.Areas.Security.Controllers
             _userService = userService;
             this.userManager = userManager;
             _fileUploadService = fileUploadService;
+
         }
 
         public IActionResult Register()
@@ -116,7 +117,8 @@ namespace Casino.Web.Areas.Security.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userId = int.Parse(userIdString);
             var profile = await _userService.GetUserProfileAsync(userId);
-            var editProfile = new EditUserProfileViewModel() { 
+            var editProfile = new EditUserProfileViewModel()
+            {
                 UserName = profile.UserName,
                 FirstName = profile.FirstName,
                 LastName = profile.LastName,
@@ -143,7 +145,7 @@ namespace Casino.Web.Areas.Security.Controllers
 
             if (model.Image != null && model.Image.Length > 0)
             {
-                var folderName = "profile_images"; 
+                var folderName = "profile_images";
                 var imagePath = await _fileUploadService.FileUploadAsync(model.Image, folderName);
 
                 user.ImagePath = imagePath;
@@ -166,5 +168,44 @@ namespace Casino.Web.Areas.Security.Controllers
             }
             return RedirectToAction(nameof(Profile));
         }
+
+
+        [HttpGet]
+        public IActionResult AddDeposit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDeposit(Deposit model)
+        {
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = int.Parse(userIdString);
+            var profile = await _userService.GetUserProfileAsync(userId);
+
+            if (!ModelState.IsValid)
+            {
+                Deposit deposit = new Deposit
+                {
+                    UserName = profile.UserName,
+                    FirstName = profile.FirstName,
+                    LastName = profile.LastName,
+                    Amount = model.Amount,
+                    UserId = userId
+                };
+
+                bool result = await accountService.AddDepositAsync(deposit);
+                if (result)
+                {
+                    return RedirectToAction("Profile"); 
+                }
+                else
+                {
+                    return View("EditProfile", model); 
+                }
+            }
+            return View(model);
+        }
+       
     }
 }

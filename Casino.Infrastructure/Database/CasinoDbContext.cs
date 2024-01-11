@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using Casino.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Casino.Infrastructure.Identity;
-
-
+using Casino.Domain.Identity;
 
 namespace Casino.Infrastructure.Database
 {
@@ -18,6 +16,7 @@ namespace Casino.Infrastructure.Database
         public DbSet<Game> Games { get; set; }
         public DbSet<Carousel> Carousels { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Deposit> Deposits { get; set; }
 
 
         public CasinoDbContext(DbContextOptions options) : base(options)
@@ -32,20 +31,27 @@ namespace Casino.Infrastructure.Database
             modelBuilder.Entity<Game>().HasData(dbInit.GetGames());
             modelBuilder.Entity<Carousel>().HasData(dbInit.GetCarousels());
 
-            //Identity - User and Role initialization
-            //roles must be added first
             modelBuilder.Entity<Role>().HasData(dbInit.CreateRoles());
 
-            //then, create users ..
             (User admin, List<IdentityUserRole<int>> adminUserRoles) = dbInit.CreateAdminWithRoles();
             (User manager, List<IdentityUserRole<int>> managerUserRoles) = dbInit.CreateManagerWithRoles();
 
-            //.. and add them to the table
             modelBuilder.Entity<User>().HasData(admin, manager);
 
-            //and finally, connect the users with the roles
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(adminUserRoles);
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(managerUserRoles);
+
+
+            modelBuilder.Entity<User>().HasKey(u => u.Id); // Configure the primary key for User
+
+            modelBuilder.Entity<Deposit>().HasKey(d => d.Id); // Configure the primary key for Deposit
+
+            // Configure the one-to-many relationship between User and Deposit
+           modelBuilder.Entity<Deposit>()
+            .HasOne(d => d.User)
+            .WithMany(u => u.Deposits)
+            .HasForeignKey(d => d.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

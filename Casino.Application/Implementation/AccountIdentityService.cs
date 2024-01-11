@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Casino.Application.Abstraction;
 using Casino.Application.ViewModels;
-using Casino.Infrastructure.Identity;
-using Casino.Infrastructure.Identity.Enums;
+using Casino.Domain.Identity;
+using Casino.Domain.Identity.Enums;
+using Casino.Infrastructure.Database;
+using Casino.Domain.Entities;
 
 namespace Casino.Application.Implementation
 {
@@ -16,11 +18,13 @@ namespace Casino.Application.Implementation
     {
         UserManager<User> userManager;
         SignInManager<User> sigInManager;
+        private readonly CasinoDbContext _context;
 
-        public AccountIdentityService(UserManager<User> userManager, SignInManager<User> sigInManager)
+        public AccountIdentityService(UserManager<User> userManager, SignInManager<User> sigInManager, CasinoDbContext context)
         {
             this.userManager = userManager;
             this.sigInManager = sigInManager;
+            _context = context;
         }
 
         public async Task<bool> Login(LoginViewModel vm)
@@ -70,6 +74,19 @@ namespace Casino.Application.Implementation
             }
 
             return errors;
+        }
+
+
+        public async Task<bool> AddDepositAsync(Deposit deposit)
+        {
+            if (deposit == null)
+            {
+                return false;
+            }
+
+            _context.Deposits.Add(deposit);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

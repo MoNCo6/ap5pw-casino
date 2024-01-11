@@ -4,8 +4,6 @@ namespace Casino.Web.Models
 {
     public class ContactViewModel
     {
-
-
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }

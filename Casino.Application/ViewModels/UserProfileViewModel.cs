@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Casino.Application.ViewModels
 {
-    public class BaseUserProfileViewModel 
+    public class BaseUserProfileViewModel
     {
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -18,7 +18,6 @@ namespace Casino.Application.ViewModels
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public int Balance { get; set; }
-
     }
 
 

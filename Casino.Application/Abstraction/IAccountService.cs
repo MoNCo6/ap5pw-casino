@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Casino.Application.ViewModels;
-using Casino.Infrastructure.Identity.Enums;
+using Casino.Domain.Entities;
+using Casino.Domain.Identity.Enums;
 
 namespace Casino.Application.Abstraction
 {
@@ -14,5 +15,6 @@ namespace Casino.Application.Abstraction
         Task<string[]> Register(RegisterViewModel vm, Roles role);
         Task<bool> Login(LoginViewModel vm);
         Task Logout();
+        Task<bool> AddDepositAsync(Deposit deposit);
     }
 }
