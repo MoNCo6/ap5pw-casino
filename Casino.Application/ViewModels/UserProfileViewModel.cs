@@ -28,13 +28,10 @@ namespace Casino.Application.ViewModels
 
     public class EditUserProfileViewModel : BaseUserProfileViewModel
     {
-
-        [FileContent("image")]
-        public IFormFile? Image { get; set; }
-
+        [FileContent("image")] public IFormFile? Image { get; set; }
     }
 
-    public class AdminEditUserProfileViewModel : EditUserProfileViewModel 
+    public class AdminEditUserProfileViewModel : EditUserProfileViewModel
     {
         public int Id { get; set; }
     }

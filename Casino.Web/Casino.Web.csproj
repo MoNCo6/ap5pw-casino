@@ -28,10 +28,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\img\background\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Include="wwwroot\js\jquery.validation.decimalseparator.js" />
 	</ItemGroup>
 

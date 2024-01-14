@@ -3,53 +3,55 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h1 class="test-primary">Deposit Administration</h1>
+            <h2 class="test-primary">Deposit Administration</h2>
         </div>
     </div>
     @{
         if (Model != null && Model.Count > 0)
         {
-            <br /> <br />
+            <br/>
+            <br/>
             <table class="table table-border table-striped" style="width:100%">
                 <thead>
-                    <tr>
-                        <th scope="col">@nameof(Deposit.Id)</th>
-                        <th scope="col">@nameof(Deposit.UserName)</th>
-                        <th scope="col">@nameof(Deposit.FirstName)</th>
-                        <th scope="col">@nameof(Deposit.LastName)</th>
-                        <th scope="col">@nameof(Deposit.Amount)</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                <tr>
+                    <th scope="col">@nameof(Deposit.Id)</th>
+                    <th scope="col">@nameof(Deposit.UserName)</th>
+                    <th scope="col">@nameof(Deposit.FirstName)</th>
+                    <th scope="col">@nameof(Deposit.LastName)</th>
+                    <th scope="col">@nameof(Deposit.Amount)</th>
+                    <th scope="col">Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < Model.Count; ++i)
-                    {
-                        <tr width="50%">
-                            <th scope="row">@Model[i].Id</th>
-                            <td>@Model[i].UserName</td>
-                            <td>@Model[i].FirstName</td>
-                            <td>@Model[i].LastName</td>
-                            <td>@Model[i].Amount</td>
-                            <td>
-                                <div class="w-75 btn-group" role="group">
-                                    <form asp-action="Confirm" asp-controller="Deposit" method="post">
-                                        <input type="hidden" name="depositId" value="@Model[i].Id" />
-                                        <button type="submit" class="btn btn-secondary mx-1">Yes!</button>
-                                    </form>
-                                    <form asp-action="Decline" asp-controller="Deposit" method="post">
-                                        <input type="hidden" name="depositId" value="@Model[i].Id" />
-                                        <button type="submit" class="btn btn-danger">No!</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    }
+                @for (int i = 0; i < Model.Count; ++i)
+                {
+                    <tr width="50%">
+                        <th scope="row">@Model[i].Id</th>
+                        <td>@Model[i].UserName</td>
+                        <td>@Model[i].FirstName</td>
+                        <td>@Model[i].LastName</td>
+                        <td>@Model[i].Amount</td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <form asp-action="Confirm" asp-controller="Deposit" method="post">
+                                    <input type="hidden" name="depositId" value="@Model[i].Id"/>
+                                    <button type="submit" class="btn btn-secondary mx-1">Yes!</button>
+                                </form>
+                                <form asp-action="Decline" asp-controller="Deposit" method="post">
+                                    <input type="hidden" name="depositId" value="@Model[i].Id"/>
+                                    <button type="submit" class="btn btn-danger">No!</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
                 </tbody>
             </table>
         }
     }
 </div>
+
 @section Scripts
-    {
+{
     <script src="~/js/dialogs.js"></script>
 }

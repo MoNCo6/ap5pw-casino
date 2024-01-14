@@ -12,30 +12,23 @@ namespace Casino.Domain.Entities
 {
     public class BaseGame : Entity
     {
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Description { get; set; }
-        [Required]
-        public string Rules { get; set; }
+        [Required] public string Title { get; set; }
+        [Required] public string Description { get; set; }
+        [Required] public string Rules { get; set; }
     }
 
     public class GameCreate : BaseGame
     {
-        [Required]
-        [FileContent("image")]
-        public IFormFile Image { get; set; }
+        [Required] [FileContent("image")] public IFormFile Image { get; set; }
     }
 
     public class GameEdit : BaseGame
     {
-        [FileContent("image")]
-        public IFormFile? Image { get; set; }
+        [FileContent("image")] public IFormFile? Image { get; set; }
     }
 
     public class Game : BaseGame
     {
-        [Required]
-        public string ImageSrc { get; set; }
+        [Required] public string ImageSrc { get; set; }
     }
 }

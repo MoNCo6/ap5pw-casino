@@ -9,8 +9,6 @@ namespace Casino.Domain.Entities
 {
     public abstract class Entity
     {
-        [Key]
-        [Required]
-        public int Id { get; set; }
+        [Key] [Required] public int Id { get; set; }
     }
 }

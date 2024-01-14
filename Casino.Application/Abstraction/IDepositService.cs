@@ -1,9 +1,9 @@
-﻿using Casino.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Casino.Domain.Entities;
 
 namespace Casino.Application.Abstraction
 {
@@ -12,5 +12,4 @@ namespace Casino.Application.Abstraction
         IList<Deposit> Select();
         Task<bool> AddDepositAsync(int userId, int amount);
     }
-
 }

@@ -1,0 +1,16 @@
+﻿@model Casino.Domain.Entities.Deposit
+
+@{
+    ViewData["Title"] = "Add amount";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="mb-3">
+    <label for="addAmount" class="form-label">Amount</label>
+    <form asp-action="AddDeposit" asp-controller="Profile" method="post">
+        <input type="number" id="addAmount" class="form-control" asp-for="Amount" placeholder="Enter amount" min="1" required/>
+        <span asp-validation-for="Amount" class="text-danger"></span>
+        <button type="submit" class="btn btn-danger mt-2">Add</button>
+    </form>
+</div>

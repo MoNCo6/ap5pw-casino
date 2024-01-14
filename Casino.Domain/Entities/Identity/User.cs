@@ -15,7 +15,6 @@ namespace Casino.Domain.Identity
         public DateTime? CreatedAt { get; set; }
         public string? ImagePath { get; set; }
         public int Balance { get; set; }
-        public virtual ICollection<Deposit> Deposits { get; set; }
+        public virtual ICollection<Deposit>? Deposits { get; set; }
     }
 }
-

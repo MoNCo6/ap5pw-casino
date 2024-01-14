@@ -9,95 +9,114 @@ using System.Threading.Tasks;
 
 namespace Casino.Application.Implementation
 {
+    // Service class responsible for game administration tasks
     public class GameAdminService : IGameAdminService
     {
-        IFileUploadService _fileUploadService;
-        CasinoDbContext _casinoDbContext;
+        // Service for handling file uploads
+        private readonly IFileUploadService _fileUploadService;
 
+        // Database context for accessing and manipulating game data
+        private readonly CasinoDbContext _casinoDbContext;
+
+        // Constructor injecting file upload and database context services
         public GameAdminService(IFileUploadService fileUploadService, CasinoDbContext casinoDbContext)
         {
             _fileUploadService = fileUploadService;
             _casinoDbContext = casinoDbContext;
         }
 
+        // Retrieves a list of all games from the database
         public IList<Game> Select()
         {
             return _casinoDbContext.Games.ToList();
         }
 
+        // Creates a new game entry and uploads its image
         public async Task Create(GameCreate game)
         {
-           string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
+            // Upload the game image and store the path
+            string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
 
-
-            Game x = new Game()
+            // Create a new Game object with the provided information
+            Game newGame = new Game()
             {
                 Id = game.Id,
                 Title = game.Title,
                 Description = game.Description,
                 Rules = game.Rules,
-                ImageSrc = imageSource,
+                ImageSrc = imageSource, // Path of the uploaded image
             };
 
-            _casinoDbContext.Games.Add(x);
+            // Add the new game to the database and save changes
+            _casinoDbContext.Games.Add(newGame);
             _casinoDbContext.SaveChanges();
-            
         }
 
+        // Deletes a game by its ID
         public bool Delete(int id)
         {
             bool deleted = false;
 
-            Game? game =
-                _casinoDbContext.Games.FirstOrDefault(game => game.Id == id);
+            // Find the game by ID
+            Game? game = _casinoDbContext.Games.FirstOrDefault(g => g.Id == id);
 
+            // If the game is found, remove it and save changes
             if (game != null)
             {
                 _casinoDbContext.Games.Remove(game);
                 _casinoDbContext.SaveChanges();
-
                 deleted = true;
             }
 
+            // Return whether the deletion was successful
             return deleted;
         }
 
+        // Finds a game by its ID
         public Game? Find(int id)
         {
+            // Return the first game that matches the given ID or null
             return _casinoDbContext.Games.FirstOrDefault(game => game.Id == id);
         }
 
+        // Updates an existing game's details
         public async Task Update(GameEdit game)
         {
-            Game origGame = Find(game.Id);
-            if(origGame == null)
+            // Find the original game by ID
+            Game originalGame = Find(game.Id);
+            if (originalGame == null)
             {
+                // If the original game isn't found, exit the method
                 return;
             }
-            _casinoDbContext.Games.Remove(origGame);
 
+            // Remove the original game from the context
+            _casinoDbContext.Games.Remove(originalGame);
 
-            string ImageSrc;
+            string imageSrc;
+            // If a new image is provided, upload it, otherwise keep the original image path
             if (game.Image != null)
             {
                 string imageSource = await _fileUploadService.FileUploadAsync(game.Image, Path.Combine("img", "games"));
-                ImageSrc = imageSource;
+                imageSrc = imageSource;
             }
             else
             {
-                ImageSrc = origGame.ImageSrc;
+                imageSrc = originalGame.ImageSrc;
             }
 
-            Game x = new Game()
+            // Create a new Game object with updated details
+            Game updatedGame = new Game()
             {
                 Id = game.Id,
                 Title = game.Title,
                 Description = game.Description,
                 Rules = game.Rules,
-                ImageSrc = ImageSrc,
+                ImageSrc = imageSrc,
             };
 
-            _casinoDbContext.Games.Add(x);
+            // Add the updated game to the database and save changes
+            _casinoDbContext.Games.Add(updatedGame);
             _casinoDbContext.SaveChanges();
         }
     }

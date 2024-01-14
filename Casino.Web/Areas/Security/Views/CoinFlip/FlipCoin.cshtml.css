@@ -1,0 +1,4 @@
+﻿input[type=radio]:checked + label {
+    background: green;
+}
+

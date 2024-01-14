@@ -1,0 +1,41 @@
+﻿@model Casino.Application.ViewModels.CoinFlipPageViewModel
+
+@{
+    ViewData["Title"] = "Coin Flip Game";
+}
+
+<h2>Coin Flip Game</h2>
+
+<div>
+    <div class="d-flex justify-content-around">
+        <p class="fw-bold text-white fs-5">Last Flip: @Model.CoinFlip.LastFlipResult</p>
+        <p class="fw-bold text-white fs-5">Your balance: @Model.UserProfile.Balance</p>
+    </div>
+
+    <!-- Center the error message -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="text-center text-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <form asp-action="FlipCoin" method="post" class="d-flex flex-column align-items-center">
+        <input type="hidden" asp-for="CoinFlip.LastFlipResult"/>
+        <img class="w-25 ratio ratio-1x1" src="~/img/coin_flip/@(Model.CoinFlip.LastFlipResult == "Heads" ? "head" : "tail").png"/>
+        <div class="d-flex gap-5 justify-content-center p-2">
+            <input id="heads" class="d-none" asp-for="CoinFlip.SelectedChoice" type="radio" value="Heads" checked/>
+            <label class="btn text-white" for="heads">Head</label>
+
+            <input id="tails" class="d-none" asp-for="CoinFlip.SelectedChoice" type="radio" value="Tails"/>
+            <label class="btn text-white" for="tails">Tail</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <input asp-for="CoinFlip.BetAmount" class="form-control w-25" type="number" min="1" placeholder="Amount"/>
+            <button class="btn btn-success ms-2" type="submit">Flip Coin</button>
+        </div>
+    </form>
+</div>

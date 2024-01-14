@@ -12,7 +12,6 @@ namespace Casino.Infrastructure.Database
 {
     internal class DatabaseInit
     {
-
         public IList<Game> GetGames()
         {
             IList<Game> games = new List<Game>();
@@ -21,35 +20,13 @@ namespace Casino.Infrastructure.Database
                 new Game()
                 {
                     Id = 1,
-                    Title = "Respin Joker",
-                    Description = "Tu sa bude nachadzat popis RESPIN JOKERA",
+                    Title = "Coin Flip",
+                    Description =
+                        "This game is all about chance, you can earn a lot with it, but you can also lose a lot, the chance is always 50/50",
                     Rules = "18+",
-                    ImageSrc = "/img/games/respinjoker.jpg"
+                    ImageSrc = "/img/games/tail.png"
                 }
             );
-
-            games.Add(
-                new Game()
-                {
-                    Id = 2,
-                    Title = "Rullette",
-                    Description = "Tu sa bude nachadzat popis RULLETTY",
-                    Rules = "18+",
-                    ImageSrc = "/img/games/Roulette.png"
-                }
-            );
-
-            games.Add(
-               new Game()
-               {
-                   Id = 3,
-                   Title = "Poker",
-                   Description = "Tu sa bude nachadzat popis POKRU",
-                   Rules = "18+",
-                   ImageSrc = "/img/games/joker.jpg"
-               }
-           );
-
             return games;
         }
 
@@ -61,7 +38,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 1,
-                ImageSrc = "/img/carousel/carousel1.jpg",
+                ImageSrc = "/img/carousel/1_carousel.png",
                 ImageAlt = "First slide"
             });
 
@@ -69,7 +46,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 2,
-                ImageSrc = "/img/carousel/carousel2.jpg",
+                ImageSrc = "/img/carousel/2_carousel.png",
                 ImageAlt = "Second slide"
             });
 
@@ -77,7 +54,7 @@ namespace Casino.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 3,
-                ImageSrc = "/img/carousel/carousel3.jpg",
+                ImageSrc = "/img/carousel/3_carousel.png",
                 ImageAlt = "Third slide"
             });
 
@@ -208,6 +185,5 @@ namespace Casino.Infrastructure.Database
 
             return (manager, managerUserRoles);
         }
-
     }
 }

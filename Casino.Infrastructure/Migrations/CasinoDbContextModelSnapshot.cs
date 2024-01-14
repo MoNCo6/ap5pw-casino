@@ -46,19 +46,19 @@ namespace Casino.Infrastructure.Migrations
                         {
                             Id = 1,
                             ImageAlt = "First slide",
-                            ImageSrc = "/img/carousel/carousel1.jpg"
+                            ImageSrc = "/img/carousel/1_carousel.png"
                         },
                         new
                         {
                             Id = 2,
                             ImageAlt = "Second slide",
-                            ImageSrc = "/img/carousel/carousel2.jpg"
+                            ImageSrc = "/img/carousel/2_carousel.png"
                         },
                         new
                         {
                             Id = 3,
                             ImageAlt = "Third slide",
-                            ImageSrc = "/img/carousel/carousel3.jpg"
+                            ImageSrc = "/img/carousel/3_carousel.png"
                         });
                 });
 
@@ -127,26 +127,10 @@ namespace Casino.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Tu sa bude nachadzat popis RESPIN JOKERA",
-                            ImageSrc = "/img/games/respinjoker.jpg",
+                            Description = "This game is all about chance, you can earn a lot with it, but you can also lose a lot, the chance is always 50/50",
+                            ImageSrc = "/img/games/tail.png",
                             Rules = "18+",
-                            Title = "Respin Joker"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Tu sa bude nachadzat popis RULLETTY",
-                            ImageSrc = "/img/games/Roulette.png",
-                            Rules = "18+",
-                            Title = "Rullette"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Tu sa bude nachadzat popis POKRU",
-                            ImageSrc = "/img/games/joker.jpg",
-                            Rules = "18+",
-                            Title = "Poker"
+                            Title = "Coin Flip"
                         });
                 });
 

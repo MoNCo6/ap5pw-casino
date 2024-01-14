@@ -13,6 +13,5 @@ namespace Casino.Web.Models
 
         [Required(ErrorMessage = "Message is required")]
         public string Message { get; set; }
-
     }
 }

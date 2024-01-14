@@ -11,24 +11,28 @@
         @ViewBag.Message
     </div>
 }
-<form asp-action="Contact" asp-controller="Home" method="post">
-    <div class="form-group">
-        <label asp-for="Subject"></label>
-        <input value="@Model.Subject" asp-for="Subject" class="form-control" />
-        <span asp-validation-for="Subject" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input value="@Model.Email" asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Message"></label>
-        <textarea asp-for="Message" class="form-control">@Model.Message</textarea>
-        <span asp-validation-for="Message" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Send Message</button>
-</form>
+<div class="bg-body">
+    <form asp-action="Contact" asp-controller="Home" method="post">
+        <div class="flex-column py-5">
+            <div class="form-group pb-4">
+                <label class="text-white" asp-for="Subject"></label>
+                <input value="@Model.Subject" asp-for="Subject" class="form-control"/>
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-4">
+                <label class="text-white" asp-for="Email"></label>
+                <input value="@Model.Email" asp-for="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-4">
+                <label class="text-white" asp-for="Message"></label>
+                <textarea asp-for="Message" class="form-control">@Model.Message</textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     @{

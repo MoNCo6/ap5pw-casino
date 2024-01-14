@@ -9,8 +9,7 @@ namespace Casino.Domain.Entities
 {
     public class Carousel : Entity
     {
-        [Required]
-        public string? ImageSrc { get; set; }
+        [Required] public string? ImageSrc { get; set; }
         public string? ImageAlt { get; set; }
     }
 }

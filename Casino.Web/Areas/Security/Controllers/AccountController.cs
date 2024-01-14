@@ -23,32 +23,32 @@ namespace Casino.Web.Areas.Security.Controllers
     [Area("Security")]
     public class AccountController : Controller
     {
-        IAccountService accountService;
-        private readonly IUserAdminService _userService;
-        UserManager<User> userManager;
-        private readonly IFileUploadService _fileUploadService;
+        // Service for handling account-related operations
+        private readonly IAccountService accountService;
 
-        public AccountController(IFileUploadService fileUploadService, IUserAdminService userService, IAccountService security, UserManager<User> userManager)
+        // Constructor to inject the account service
+        public AccountController(IAccountService security)
         {
             this.accountService = security;
-            _userService = userService;
-            this.userManager = userManager;
-            _fileUploadService = fileUploadService;
-
         }
 
+        // GET method to show the registration form
         public IActionResult Register()
         {
             return View();
         }
 
+        // POST method to handle user registration
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerVM)
         {
+            // Validate the model state
             if (ModelState.IsValid)
             {
+                // Register the user and capture any errors
                 string[] errors = await accountService.Register(registerVM, Roles.Customer);
 
+                // If no errors, proceed to log in the user
                 if (errors == null)
                 {
                     LoginViewModel loginVM = new LoginViewModel()
@@ -57,155 +57,66 @@ namespace Casino.Web.Areas.Security.Controllers
                         Password = registerVM.Password
                     };
 
+                    // Attempt to log in the new user
                     bool isLogged = await accountService.Login(loginVM);
                     if (isLogged)
-                        return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
+                        // Redirect to the home page if login is successful
+                        return RedirectToAction(nameof(HomeController.Index),
+                            nameof(HomeController).Replace(nameof(Controller), string.Empty),
+                            new { area = string.Empty });
                     else
+                        // Redirect to the login page if login fails
                         return RedirectToAction(nameof(Login));
                 }
                 else
                 {
-                    //error to ViewModel
+                    // Add errors to the ViewModel if registration failed
+                    // ... (handle errors accordingly)
                 }
-
             }
 
+            // If model state is not valid or registration fails, return the registration form
             return View(registerVM);
         }
 
+        // GET method to show the login form
         public IActionResult Login()
         {
             return View();
         }
 
+        // POST method to handle user login
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {
+            // Validate the model state
             if (ModelState.IsValid)
             {
+                // Attempt to log in the user
                 bool isLogged = await accountService.Login(loginVM);
-                if (isLogged)
-                    return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace(nameof(Controller), String.Empty), new { area = String.Empty });
 
+                // If login is successful, redirect to the home page
+                if (isLogged)
+                    return RedirectToAction(nameof(HomeController.Index),
+                        nameof(HomeController).Replace(nameof(Controller), string.Empty), new { area = string.Empty });
+
+                // If login failed, set the LoginFailed property for showing error message
                 loginVM.LoginFailed = true;
             }
 
+            // Return the login form with the current ViewModel (including any errors)
             return View(loginVM);
         }
 
-        [Authorize]
+        // Action method to handle user logout
+        [Authorize] // Ensure that only logged-in users can access this method
         public async Task<IActionResult> Logout()
         {
+            // Log out the user
             await accountService.Logout();
+
+            // Redirect to the login page after logout
             return RedirectToAction(nameof(Login));
         }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Profile()
-        {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = int.Parse(userIdString);
-            var profile = await _userService.GetUserProfileAsync(userId);
-            return View(profile);
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> EditProfile()
-        {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = int.Parse(userIdString);
-            var profile = await _userService.GetUserProfileAsync(userId);
-            var editProfile = new EditUserProfileViewModel()
-            {
-                UserName = profile.UserName,
-                FirstName = profile.FirstName,
-                LastName = profile.LastName,
-                Email = profile.Email,
-                PhoneNumber = profile.PhoneNumber
-            };
-            return View(editProfile);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> EditProfile(EditUserProfileViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = await userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            if (model.Image != null && model.Image.Length > 0)
-            {
-                var folderName = "profile_images";
-                var imagePath = await _fileUploadService.FileUploadAsync(model.Image, folderName);
-
-                user.ImagePath = imagePath;
-            }
-
-            user.UserName = model.UserName;
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
-
-            var updateResult = await userManager.UpdateAsync(user);
-            if (!updateResult.Succeeded)
-            {
-                foreach (var error in updateResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return View(model);
-            }
-            return RedirectToAction(nameof(Profile));
-        }
-
-
-        [HttpGet]
-        public IActionResult AddDeposit()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddDeposit(Deposit model)
-        {
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userId = int.Parse(userIdString);
-            var profile = await _userService.GetUserProfileAsync(userId);
-
-            if (!ModelState.IsValid)
-            {
-                Deposit deposit = new Deposit
-                {
-                    UserName = profile.UserName,
-                    FirstName = profile.FirstName,
-                    LastName = profile.LastName,
-                    Amount = model.Amount,
-                    UserId = userId
-                };
-
-                bool result = await accountService.AddDepositAsync(deposit);
-                if (result)
-                {
-                    return RedirectToAction("Profile"); 
-                }
-                else
-                {
-                    return View("EditProfile", model); 
-                }
-            }
-            return View(model);
-        }
-       
     }
 }
